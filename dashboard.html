@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>My Documents</h1>
+        <a href="{{ url_for('upload_pdf') }}" class="btn btn-primary">
+            <i class="fas fa-upload me-2"></i>Upload New PDF
+        </a>
+    </div>
+
+    {% if pdfs %}
+        <div class="row">
+            {% for pdf in pdfs %}
+                <div class="col-md-4 mb-4">
+                    <div class="card pdf-card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ pdf.original_filename }}</h5>
+                            <p class="card-text">
+                                <small class="text-muted">Uploaded: {{ pdf.upload_date.strftime('%Y-%m-%d %H:%M') }}</small>
+                            </p>
+                            <p class="card-text">
+                                {% set content_preview = pdf.content[:100] ~ '...' if pdf.content|length > 100 else pdf.content %}
+                                {{ content_preview }}
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <a href="{{ url_for('view_pdf', pdf_id=pdf.id) }}" class="btn btn-primary w-100">
+                                <i class="fas fa-comments me-2"></i>Chat with Document
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center p-5">
+            <i class="fas fa-file-pdf fa-4x text-muted mb-3"></i>
+            <h3>No PDFs yet</h3>
+            <p class="mb-4">Upload your first PDF document to get started.</p>
+            <a href="{{ url_for('upload_pdf') }}" class="btn btn-primary">Upload PDF</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

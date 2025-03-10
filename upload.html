@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload PDF{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Upload PDF Document</h2>
+                    <form method="POST" action="{{ url_for('upload_pdf') }}" enctype="multipart/form-data">
+                        <div class="mb-4 text-center">
+                            <label for="pdf_file" class="form-label d-block">
+                                <div class="border border-2 border-dashed rounded-3 p-5">
+                                    <i class="fas fa-file-upload fa-3x text-primary mb-3"></i>
+                                    <h5>Drag & Drop your PDF here</h5>
+                                    <p class="text-muted">or click to browse</p>
+                                </div>
+                                <input type="file" class="form-control d-none" id="pdf_file" name="pdf_file" accept=".pdf" required>
+                            </label>
+                            <div id="file-name" class="mt-2"></div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Upload Document</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('pdf_file').addEventListener('change', function() {
+        const fileName = this.files[0]?.name || 'No file selected';
+        document.getElementById('file-name').textContent = fileName;
+    });
+
+    // Enable drag and drop
+    const dropArea = document.querySelector('.border-dashed');
+    
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false);
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+    });
+    
+    function highlight() {
+        dropArea.classList.add('bg-light');
+    }
+    
+    function unhighlight() {
+        dropArea.classList.remove('bg-light');
+    }
+    
+    dropArea.addEventListener('drop', handleDrop, false);
+    
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        document.getElementById('pdf_file').files = files;
+        
+        const fileName = files[0]?.name || 'No file selected';
+        document.getElementById('file-name').textContent = fileName;
+    }
+</script>
+{% endblock %}

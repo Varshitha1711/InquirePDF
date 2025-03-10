@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-4">Chat with Your PDF Documents</h1>
+        <p class="lead mb-5">Upload your PDFs and ask questions to get instant, intelligent answers powered by Gemini AI.</p>
+        {% if 'user_id' not in session %}
+            <div>
+                <a href="{{ url_for('register') }}" class="btn btn-light btn-lg me-3">Get Started</a>
+                <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">Log In</a>
+            </div>
+        {% else %}
+            <div>
+                <a href="{{ url_for('upload_pdf') }}" class="btn btn-light btn-lg me-3">Upload PDF</a>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-outline-light btn-lg">My Documents</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center p-4">
+                <div class="card-body">
+                    <i class="fas fa-upload fa-3x text-primary mb-3"></i>
+                    <h3 class="card-title">Upload</h3>
+                    <p class="card-text">Upload your PDF documents securely to our platform.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center p-4">
+                <div class="card-body">
+                    <i class="fas fa-robot fa-3x text-primary mb-3"></i>
+                    <h3 class="card-title">Ask</h3>
+                    <p class="card-text">Ask questions about your documents in natural language.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center p-4">
+                <div class="card-body">
+                    <i class="fas fa-lightbulb fa-3x text-primary mb-3"></i>
+                    <h3 class="card-title">Get Answers</h3>
+                    <p class="card-text">Receive accurate answers based on your document's content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <h2 class="mb-4">Unlock Your Document's Potential</h2>
+            <p class="lead">PDF Insight uses advanced AI to help you extract valuable information from your documents.</p>
+            <p>Whether you're a researcher, student, or professional, our platform helps you find answers quickly without reading through lengthy PDFs.</p>
+            <p>Our secure platform ensures your documents remain private while providing powerful AI-driven insights.</p>
+        </div>
+        <div class="col-lg-6">
+            <img src="/api/placeholder/600/400" alt="PDF Insight Demo" class="img-fluid rounded shadow">
+        </div>
+    </div>
+</div>
+{% endblock %}
