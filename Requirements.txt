@@ -1,7 +1,0 @@
-Before setting up Acadbot, ensure you have the following installed:
--Python 3.x
--Flask (For building the web interface)
--LangChain (For AI-powered conversational retrieval)
--OpenAI GPT-3/GPT-4 (For chatbot responses)
--FAISS (For fast semantic search and vector database management)
--PyPDF2 (For extracting text from PDFs)
