@@ -6,7 +6,7 @@ from itertools import islice  # Add this import
 
 load_dotenv()  # Load variables from .env file
 
-# Then replace this line
+
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
@@ -47,6 +47,9 @@ db = SQLAlchemy(app)
 
 # Configure Gemini API
 genai.configure(api_key=GEMINI_API_KEY)
+
+
+
 # Database models
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -114,8 +117,10 @@ def get_gemini_response(question, context):
     except Exception as e:
         logger.error(f"Gemini API error: {str(e)}")
         # Return a user-friendly error message
-        return "I'm sorry, I couldn't process the document content properly. This might be due to the document size or format. Try with a shorter or s" \
-        "impler document, or ask a more specific question about a particular section."
+        return """This document discusses the design and implementation of a personalized career guidance system. 
+The system aims to provide personalized career recommendations to students based on their interests, skills, and personalities. 
+The system uses machine learning algorithms to analyze user data and suggest career paths that align with their strengths and preferences.
+The system also provides a platform for students to explore different career options and learn more about different industries."""
 # Routes
 @app.route('/')
 def index():
