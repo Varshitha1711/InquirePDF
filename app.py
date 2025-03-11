@@ -117,10 +117,7 @@ def get_gemini_response(question, context):
     except Exception as e:
         logger.error(f"Gemini API error: {str(e)}")
         # Return a user-friendly error message
-        return """This document discusses the design and implementation of a personalized career guidance system. 
-The system aims to provide personalized career recommendations to students based on their interests, skills, and personalities. 
-The system uses machine learning algorithms to analyze user data and suggest career paths that align with their strengths and preferences.
-The system also provides a platform for students to explore different career options and learn more about different industries."""
+        return """Sorry there is an error processing your request."""
 # Routes
 @app.route('/')
 def index():
